@@ -1,0 +1,916 @@
+/* ============================================
+   🎨 PARAMÈTRES DE COULEURS - MODIFIER ICI
+   ============================================ */
+:root {
+    /* FONDS - Change ces valeurs pour tester ! */
+    --bg-primary: #f5f5f5;      /* Fond principal des sections */
+    --bg-secondary: #ffffff;    /* Fond alternatif */
+    --bg-dark: #1A1A2E;         /* Fond sombre (hero, footer) */
+
+    /* Couleurs identité IDIoTsLab */
+    --primary-orange: #ed681a;
+    --primary-blue: #01294D;
+    --accent-yellow: #F7B801;
+
+    /* Nuances dérivées pour cohérence */
+    --orange-light: #ff8947;
+    --orange-dark: #c55515;
+    --blue-light: #023e73;
+    --blue-lighter: #0a5799;
+
+    /* Texte */
+    --text-dark: #2C2C2C;
+    --text-light: #F5F5F5;
+}
+
+/* ============================================
+   Exemples de palettes à tester :
+
+   CLAIR (actuel) :
+   --bg-primary: #f5f5f5;
+   --bg-secondary: #ffffff;
+
+   GRIS DOUX :
+   --bg-primary: #e8e8e8;
+   --bg-secondary: #f0f0f0;
+
+   DARK MODE :
+   --bg-primary: #0f1419;
+   --bg-secondary: #1a1f28;
+   --text-dark: #e8eaed;
+
+   BEIGE/CRÈME :
+   --bg-primary: #f8f4ed;
+   --bg-secondary: #fefbf5;
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-primary);
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-orange);
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: var(--accent-yellow);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--bg-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-light);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--primary-orange);
+    border-radius: 50%;
+    opacity: 0.1;
+    top: -250px;
+    right: -250px;
+}
+
+.hero-content {
+    max-width: 800px;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-orange);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero .tagline {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: var(--accent-yellow);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--primary-orange);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+}
+
+/* Section Commune */
+section {
+    padding: 5rem 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    color: var(--primary-blue);
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--primary-orange);
+}
+
+/* Valeurs Section - Disposition orbitale */
+.values {
+    background: var(--bg-secondary);
+    padding: 8rem 2rem;
+}
+
+.orbital-values {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logo central */
+.center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.logo-circle {
+    width: 180px;
+    height: 180px;
+    background: transparent; /* Enlève le gradient car tu as l'image */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(237, 104, 26, 0.4);
+    animation: pulse-glow 3s ease-in-out infinite;
+    overflow: hidden; /* Pour que l'image reste dans le cercle */
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image remplit le cercle sans déformation */
+    border-radius: 50%;
+}
+
+/* Garde l'ancienne classe si besoin, mais masque le texte */
+.logo-text {
+    display: none; /* Cache le texte puisqu'on a l'image */
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 10px 40px rgba(237, 104, 26, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 15px 50px rgba(237, 104, 26, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+/* Lignes de connexion */
+.connection-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Container pour chaque valeur en orbite */
+.value-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 280px;
+    height: 280px;
+}
+
+/* Positionnement circulaire des 3 valeurs */
+.value-orbit-1 {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-320px) rotate(0deg);
+}
+
+.value-orbit-2 {
+    transform: translate(-50%, -50%) rotate(120deg) translateY(-320px) rotate(-120deg);
+}
+
+.value-orbit-3 {
+    transform: translate(-50%, -50%) rotate(240deg) translateY(-320px) rotate(-240deg);
+}
+
+/* Carte de valeur orbitale */
+.value-card-orbital {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 20px;
+    background: var(--bg-primary);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    border: 3px solid transparent;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.value-card-orbital:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 50px rgba(237, 104, 26, 0.3);
+    border-color: var(--primary-orange);
+}
+
+.value-card-orbital .emoji {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.value-card-orbital h3 {
+    font-size: 1.6rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.value-card-orbital p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+/* Animation d'apparition au scroll */
+.value-orbit {
+    opacity: 0;
+    animation: orbit-appear 0.8s ease-out forwards;
+}
+
+.value-orbit-1 {
+    animation-delay: 0.2s;
+}
+
+.value-orbit-2 {
+    animation-delay: 0.4s;
+}
+
+.value-orbit-3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes orbit-appear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-200px) rotate(calc(-1 * var(--rotation))) scale(0.5);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Comment Section */
+.how {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.spaces-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.space-card {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 5px solid var(--primary-orange);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.space-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.space-card .space-size {
+    font-weight: bold;
+    color: var(--primary-orange);
+}
+
+/* What Section */
+.what {
+    background: var(--bg-secondary);
+}
+
+.what h3 {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    color: var(--blue-lighter);
+    font-size: 1.8rem;
+}
+
+.activities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.activity-item {
+    background: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.activity-item:hover {
+    background: var(--accent-yellow);
+    color: white;
+}
+
+.activity-item h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Carrousel amélioré */
+.carousel-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.6);
+    background: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 500px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--card-bg) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-text);
+    font-size: 1.3rem;
+    padding: 2rem;
+    position: relative;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel-item h3 {
+    color: var(--primary-orange);
+    margin: 1rem 0;
+}
+
+.carousel-item p {
+    color: var(--gray-text);
+}
+
+/* Boutons de navigation du carrousel */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(237, 104, 26, 0.9);
+    color: var(--white);
+    border: 2px solid var(--primary-blue);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn:hover {
+    background: var(--orange-light);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+    left: 20px;
+}
+
+.carousel-btn.next {
+    right: 20px;
+}
+
+.carousel-nav {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.carousel-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    margin: 0 6px;
+    cursor: pointer;
+    border: 2px solid var(--primary-blue);
+    transition: all 0.3s;
+}
+
+.carousel-dot:hover {
+    transform: scale(1.2);
+    border-color: var(--primary-orange);
+}
+
+.carousel-dot.active {
+    background: var(--primary-orange);
+    border-color: var(--primary-orange);
+    transform: scale(1.3);
+}
+
+
+/* Community Section */
+.community {
+    background: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.community h2 {
+    color: var(--accent-yellow);
+}
+
+.community-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Carrousel de membres - REMPLACE l'ancien .members-grid */
+.members-carousel-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.members-carousel-wrapper {
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+.members-carousel {
+    display: flex;
+    gap: 2rem;
+    transition: transform 0.5s ease-in-out;
+}
+
+.member-card {
+    min-width: calc(25% - 1.5rem); /* 4 cartes visibles */
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.member-card .avatar {
+    width: 100px;
+    height: 100px;
+    background: var(--primary-orange);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.member-card h4 {
+    color: var(--accent-yellow);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.member-card p {
+    color: var(--text-light);
+}
+
+/* Boutons de navigation du carrousel membres */
+.members-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(237, 104, 26, 0.9);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.members-carousel-btn:hover {
+    background: var(--orange-light);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.members-carousel-btn.prev {
+    left: -25px;
+}
+
+.members-carousel-btn.next {
+    right: -25px;
+}
+
+/* Autonomie Section */
+.autonomie {
+    background: var(--bg-secondary);
+}
+
+.autonomie-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.autonomie-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.support-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.support-option {
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border-radius: 10px;
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+/* Rejoins-nous Section */
+.join {
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--accent-yellow) 100%);
+    color: white;
+    text-align: center;
+}
+
+.join h2 {
+    color: white;
+}
+
+.join h2::after {
+    background: white;
+}
+
+.contact-info {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.contact-info p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    min-height: 400px;
+}
+
+/* Footer */
+footer {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 2rem;
+}
+
+footer a {
+    color: var(--accent-yellow);
+    text-decoration: none;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .orbital-values {
+        height: 700px;
+    }
+
+    .value-orbit {
+        width: 240px;
+        height: 240px;
+    }
+
+    .value-orbit-1 {
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-280px) rotate(0deg);
+    }
+
+    .value-orbit-2 {
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-280px) rotate(-120deg);
+    }
+
+    .value-orbit-3 {
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-280px) rotate(-240deg);
+    }
+
+    .logo-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
+    }
+
+    .member-card {
+        min-width: calc(33.333% - 1.33rem); /* 3 cartes sur tablette */
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-dark);
+        padding: 2rem;
+        gap: 1rem;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero .tagline {
+        font-size: 1.2rem;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    .carousel-item {
+        height: 350px;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .carousel-btn.prev {
+        left: 10px;
+    }
+
+    .carousel-btn.next {
+        right: 10px;
+    }
+
+    .orbital-values {
+        height: auto;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .center-logo {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-bottom: 3rem;
+    }
+
+    .value-orbit {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        transform: none !important;
+        margin: 0 auto;
+    }
+
+    .connection-lines {
+        display: none;
+    }
+
+    .value-card-orbital {
+        height: auto;
+    }
+
+    .member-card {
+        min-width: calc(50% - 1rem); /* 2 cartes sur mobile */
+    }
+
+    .members-carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .members-carousel-btn.prev {
+        left: 0;
+    }
+
+    .members-carousel-btn.next {
+        right: 0;
+    }
+
+    .logo-circle {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+    }
+
+    .value-card-orbital {
+        padding: 1.5rem;
+    }
+
+    .value-card-orbital .emoji {
+        font-size: 3rem;
+    }
+
+    .value-card-orbital h3 {
+        font-size: 1.4rem;
+    }
+
+    .member-card {
+        min-width: calc(100% - 1rem); /* 1 carte sur petit mobile */
+    }
+}

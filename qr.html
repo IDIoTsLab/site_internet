@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirection - IDIoTsLab</title>
+
+    <!-- Redirection automatique après 0 secondes -->
+    <meta http-equiv="refresh" content="0; url=index.html">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #01294D 0%, #1A1A2E 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .redirect-message {
+            max-width: 500px;
+        }
+
+        .redirect-message h1 {
+            color: #ed681a;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .redirect-message p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .redirect-message a {
+            color: #F7B801;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .redirect-message a:hover {
+            text-decoration: underline;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            margin: 2rem auto;
+            border: 5px solid rgba(237, 104, 26, 0.3);
+            border-top-color: #ed681a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-message">
+        <h1>Redirection en cours...</h1>
+        <div class="spinner"></div>
+        <p>Vous allez être redirigé automatiquement vers la page d'accueil.</p>
+        <p>Si la redirection ne fonctionne pas, <a href="index.html">cliquez ici</a>.</p>
+    </div>
+
+    <script>
+        // Redirection JavaScript (backup si meta refresh ne fonctionne pas)
+        setTimeout(function() {
+            window.location.href = 'index.html';
+        }, 100);
+    </script>
+</body>
+</html>
