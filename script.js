@@ -94,15 +94,6 @@ window.addEventListener('load', () => {
     updateScrollProgress();
 });
 
-// Protection anti-spam pour l'email
-function showEmail() {
-    const parts = ['REDACTED'];
-    const email = parts[0] + '@' + parts[1] + '.' + parts[2];
-    document.getElementById('email-address').innerHTML =
-        '<a href="mailto:' + email + '" style="color: white;">' + email + '</a>';
-}
-// Délai pour éviter les bots basiques
-setTimeout(showEmail, 200);
 
 // Navigation mobile
 function toggleMenu() {
@@ -403,3 +394,21 @@ function enableOrbitalRotation() {
 
 // Appeler la fonction au chargement (si tu veux l'animation)
 window.addEventListener('load', enableOrbitalRotation);
+
+// ============================================
+// 📧 OBFUSCATION EMAIL
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        const emailLink = document.querySelector('.email-link');
+        if (emailLink) {
+            emailLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const user = 'REDACTED';
+                const domain = 'REDACTED';
+                window.location.href = 'mailto:' + user + '@' + domain;
+            });
+        }
+    }, 5000);
+});
+    
