@@ -1,3 +1,99 @@
+// Affichage de la navigation au scroll
+let lastScrollTop = 0;
+const nav = document.querySelector('nav');
+const scrollThreshold = 100; // Pixels à scroller avant que la nav apparaisse
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > scrollThreshold) {
+        nav.classList.add('visible');
+    } else {
+        nav.classList.remove('visible');
+    }
+
+    lastScrollTop = scrollTop;
+
+    // Mettre à jour la barre de progression
+    updateScrollProgress();
+});
+
+// ============================================
+// 📊 BARRE DE PROGRESSION VERTICALE
+// ============================================
+function initScrollProgress() {
+    const sections = [
+        { id: 'hero', name: 'Accueil' },
+        { id: 'values', name: 'Valeurs' },
+        { id: 'how', name: 'Le Lab' },
+        { id: 'what', name: 'Projets' },
+        { id: 'community', name: 'Communauté' },
+        { id: 'autonomie', name: 'Autonomie' },
+        { id: 'join', name: 'Rejoindre' }
+    ];
+
+    const progressSections = document.getElementById('progressSections');
+
+    sections.forEach((section, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        dot.style.top = `${(index / (sections.length - 1)) * 100}%`;
+        dot.dataset.sectionId = section.id;
+
+        const label = document.createElement('span');
+        label.className = 'progress-dot-label';
+        label.textContent = section.name;
+        dot.appendChild(label);
+
+        dot.addEventListener('click', () => {
+            const targetSection = document.getElementById(section.id);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        progressSections.appendChild(dot);
+    });
+}
+
+function updateScrollProgress() {
+    const scrollProgressBar = document.getElementById('scrollProgressBar');
+    const progressDots = document.querySelectorAll('.progress-dot');
+
+    // Calculer la progression totale
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+
+    if (scrollProgressBar) {
+        scrollProgressBar.style.height = `${Math.min(scrollPercent, 100)}%`;
+    }
+
+    // Activer le point correspondant à la section visible
+    progressDots.forEach(dot => {
+        const sectionId = dot.dataset.sectionId;
+        const section = document.getElementById(sectionId);
+
+        if (section) {
+            const rect = section.getBoundingClientRect();
+            const isVisible = rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2;
+
+            if (isVisible) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        }
+    });
+}
+
+// Initialiser au chargement
+window.addEventListener('load', () => {
+    initScrollProgress();
+    updateScrollProgress();
+});
+
 // Protection anti-spam pour l'email
 function showEmail() {
     const parts = ['REDACTED'];
