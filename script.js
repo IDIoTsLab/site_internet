@@ -33,8 +33,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 let currentSlide = 0;
 const carousel = document.getElementById('carousel');
 const dots = document.querySelectorAll('.carousel-dot');
-const totalSlides = 4;
+const totalSlides = 8;
 let autoPlayInterval;
+let touchStartX = 0;
+let touchEndX = 0;
 
 function updateCarousel() {
     carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
