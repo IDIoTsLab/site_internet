@@ -1179,12 +1179,12 @@ footer a {
     }
 
     .carousel-item {
-        height: 600px;
+        height: 450px;
         padding: 2rem 1rem;
     }
 
     .carousel-item .carousel-image {
-        height: 400px;
+        height: 250px;
     }
 
     .carousel-item h3 {
