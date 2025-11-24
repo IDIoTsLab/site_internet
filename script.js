@@ -411,4 +411,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 5000);
 });
-    
+
+// ============================================
+// 🎮 EVENT MODAL FUNCTIONALITY
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    const eventModal = document.getElementById('eventModal');
+
+    // Check if modal should be displayed (only until January 17, 2026)
+    const eventEndDate = new Date('2026-01-17T23:59:59');
+    const now = new Date();
+
+    // Check if user has already closed the modal in this session
+    const modalClosed = sessionStorage.getItem('eventModalClosed');
+
+    if (now <= eventEndDate && !modalClosed && eventModal) {
+        // Show modal after a short delay
+        setTimeout(function() {
+            eventModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }, 1500);
+    }
+});
+
+// Function to close the event modal
+function closeEventModal() {
+    const eventModal = document.getElementById('eventModal');
+    if (eventModal) {
+        eventModal.classList.remove('show');
+        document.body.style.overflow = ''; // Restore scrolling
+
+        // Remember that user closed the modal for this session
+        sessionStorage.setItem('eventModalClosed', 'true');
+    }
+}
+
+// Close modal when pressing Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeEventModal();
+    }
+});
