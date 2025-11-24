@@ -1,0 +1,691 @@
+/* ============================================
+   🎨 EVENT COLOR SCHEME
+   ============================================ */
+:root {
+    /* Event colors */
+    --orange-vif: #FF8C00;
+    --orange-alt: #FF9500;
+    --bleu-violet: #5B4E9B;
+    --bleu-violet-alt: #6B5BA8;
+    --bleu-marine: #1A3A52;
+    --bleu-marine-alt: #0D2A3E;
+    --gris-clair: #E5E5E5;
+    --gris-alt: #D9D9D9;
+    --noir: #000000;
+    --blanc: #FFFFFF;
+}
+
+/* ============================================
+   🎯 GLOBAL STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--gris-clair) 0%, var(--blanc) 50%, var(--gris-alt) 100%);
+    color: var(--noir);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   🎲 DECORATIVE DICE
+   ============================================ */
+.dice-decoration {
+    position: fixed;
+    font-size: 4rem;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1;
+    animation: float-dice 20s ease-in-out infinite;
+    color: var(--bleu-violet);
+}
+
+.dice-1 {
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.dice-2 {
+    top: 70%;
+    right: 8%;
+    animation-delay: 5s;
+}
+
+.dice-3 {
+    bottom: 15%;
+    left: 10%;
+    animation-delay: 10s;
+}
+
+.dice-4 {
+    top: 40%;
+    right: 5%;
+    animation-delay: 15s;
+}
+
+@keyframes float-dice {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-30px) rotate(90deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(180deg);
+    }
+    75% {
+        transform: translateY(-45px) rotate(270deg);
+    }
+}
+
+/* ============================================
+   🔙 BACK BUTTON
+   ============================================ */
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--bleu-marine);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+    background: var(--bleu-marine);
+    color: var(--blanc);
+    transform: translateX(-5px);
+    box-shadow: 0 6px 20px rgba(26, 58, 82, 0.3);
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   📦 CONTAINER
+   ============================================ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================
+   🎪 HEADER
+   ============================================ */
+.event-header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    animation: fade-in-down 0.8s ease-out;
+}
+
+.event-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+    animation: pulse-logo 3s ease-in-out infinite;
+}
+
+@keyframes pulse-logo {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.event-title {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title-aprem {
+    display: block;
+    color: var(--bleu-marine);
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.title-jeux {
+    display: block;
+    color: var(--orange-vif);
+    font-size: 5rem;
+    letter-spacing: 4px;
+    text-shadow: 3px 3px 6px rgba(255, 140, 0, 0.3);
+}
+
+.title-societe {
+    display: block;
+    color: var(--bleu-violet);
+    font-size: 3rem;
+    letter-spacing: 3px;
+}
+
+/* ============================================
+   📅 DATE BANNER
+   ============================================ */
+.date-banner {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    background: linear-gradient(135deg, var(--orange-vif) 0%, var(--orange-alt) 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+    margin: 2rem 0 3rem;
+    animation: fade-in-up 0.8s ease-out 0.2s backwards;
+}
+
+.date-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--blanc);
+}
+
+.date-icon {
+    font-size: 3rem;
+    animation: bounce-icon 2s ease-in-out infinite;
+}
+
+@keyframes bounce-icon {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.date-text {
+    text-align: left;
+}
+
+.date-text strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+}
+
+/* ============================================
+   📋 CONTENT GRID
+   ============================================ */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+/* ============================================
+   🃏 CARDS
+   ============================================ */
+.card {
+    background: var(--blanc);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    animation: fade-in-up 0.8s ease-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--bleu-violet) 0%, var(--bleu-violet-alt) 100%);
+    color: var(--blanc);
+    padding: 1.5rem;
+    border-bottom: 4px solid var(--orange-vif);
+}
+
+.card-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.card-content {
+    padding: 2rem;
+}
+
+/* Card-specific delays for staggered animation */
+.card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ============================================
+   📝 DESCRIPTION CARD
+   ============================================ */
+.card-description .features-list {
+    list-style: none;
+    margin: 1.5rem 0;
+}
+
+.card-description .features-list li {
+    padding: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.card-description .features-list li::before {
+    content: '🎲';
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
+.highlight {
+    background: linear-gradient(135deg, var(--orange-vif) 0%, var(--orange-alt) 100%);
+    color: var(--blanc);
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ============================================
+   📍 LOCATION CARD
+   ============================================ */
+.location-details {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.location-details p {
+    margin: 0.3rem 0;
+}
+
+.location-details strong {
+    color: var(--bleu-marine);
+    font-size: 1.2rem;
+}
+
+.map-button {
+    display: inline-block;
+    background: var(--bleu-marine);
+    color: var(--blanc);
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.map-button:hover {
+    background: var(--bleu-marine-alt);
+    transform: scale(1.05);
+}
+
+/* ============================================
+   ✨ MODALITIES CARD
+   ============================================ */
+.modality-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0.8rem 0;
+    background: var(--gris-clair);
+    border-radius: 10px;
+    border-left: 4px solid var(--orange-vif);
+    transition: all 0.3s ease;
+}
+
+.modality-item:hover {
+    background: var(--orange-vif);
+    color: var(--blanc);
+    transform: translateX(10px);
+}
+
+.modality-icon {
+    font-size: 2rem;
+}
+
+.modality-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   🎮 GAMES CARD
+   ============================================ */
+.card-games {
+    grid-column: 1 / -1;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.game-tag {
+    background: linear-gradient(135deg, var(--bleu-violet) 0%, var(--bleu-violet-alt) 100%);
+    color: var(--blanc);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.game-tag:hover {
+    background: linear-gradient(135deg, var(--orange-vif) 0%, var(--orange-alt) 100%);
+    transform: scale(1.05) rotate(-2deg);
+}
+
+.games-more {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--bleu-violet);
+    margin-top: 1.5rem;
+}
+
+/* ============================================
+   📞 CONTACT SECTION
+   ============================================ */
+.contact-section {
+    background: var(--blanc);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    margin: 3rem 0;
+    text-align: center;
+    animation: fade-in-up 0.8s ease-out 0.5s backwards;
+}
+
+.contact-section h2 {
+    color: var(--bleu-marine);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--gris-clair);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--bleu-marine);
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.contact-link:hover {
+    background: var(--bleu-violet);
+    color: var(--blanc);
+    border-color: var(--orange-vif);
+    transform: translateY(-5px);
+}
+
+.contact-link svg {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   🎯 CALL TO ACTION
+   ============================================ */
+.cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, var(--bleu-marine) 0%, var(--bleu-marine-alt) 100%);
+    color: var(--blanc);
+    padding: 4rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin: 3rem 0;
+    animation: fade-in-up 0.8s ease-out 0.6s backwards;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--blanc);
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--orange-vif) 0%, var(--orange-alt) 100%);
+    color: var(--blanc);
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 140, 0, 0.6);
+}
+
+/* ============================================
+   🦶 FOOTER
+   ============================================ */
+footer {
+    background: var(--noir);
+    color: var(--blanc);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+    opacity: 0.8;
+}
+
+/* ============================================
+   🎬 ANIMATIONS
+   ============================================ */
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   📱 RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+    .event-title {
+        font-size: 3rem;
+    }
+
+    .title-jeux {
+        font-size: 4rem;
+    }
+
+    .title-societe {
+        font-size: 2.5rem;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .back-button {
+        top: 10px;
+        left: 10px;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .event-title {
+        font-size: 2rem;
+    }
+
+    .title-aprem {
+        font-size: 1.5rem;
+    }
+
+    .title-jeux {
+        font-size: 3rem;
+    }
+
+    .title-societe {
+        font-size: 2rem;
+    }
+
+    .date-banner {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .date-item {
+        justify-content: center;
+    }
+
+    .date-text strong {
+        font-size: 1.2rem;
+    }
+
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+
+    .cta-section p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+
+    .dice-decoration {
+        font-size: 2.5rem;
+        opacity: 0.05;
+    }
+}
+
+@media (max-width: 480px) {
+    .event-header {
+        padding: 2rem 0 1rem;
+    }
+
+    .event-logo {
+        width: 80px;
+    }
+
+    .title-jeux {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-header {
+        padding: 1rem;
+    }
+
+    .card-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+}
