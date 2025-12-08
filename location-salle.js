@@ -7,6 +7,23 @@ function toggleMenu() {
 }
 
 // ============================================
+// EMAIL OBFUSCATION (5 seconds delay)
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        const emailLink = document.querySelector('.email-link');
+        if (emailLink) {
+            emailLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const user = 'REDACTED';
+                const domain = 'REDACTED';
+                window.location.href = 'mailto:' + user + '@' + domain;
+            });
+        }
+    }, 5000);
+});
+
+// ============================================
 // CAROUSEL
 // ============================================
 class RoomCarousel {
@@ -154,8 +171,13 @@ Détails de la réservation :
 
 Veuillez vérifier la disponibilité et confirmer si nécessaire.`;
 
+        // Obfuscation de l'email
+        const user = 'REDACTED';
+        const domain = 'REDACTED';
+        const email = user + '@' + domain;
+
         // Encoder les paramètres pour l'URL
-        const mailtoLink = `mailto:contact@idiotslab.fr?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
         // Ouvrir le client email
         window.location.href = mailtoLink;
