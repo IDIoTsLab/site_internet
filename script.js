@@ -154,7 +154,7 @@ function goToSlide(index) {
 function startAutoPlay() {
     autoPlayInterval = setInterval(() => {
         changeSlide(1);
-    }, 5000);
+    }, 10000);
 }
 
 function resetAutoPlay() {
@@ -229,6 +229,8 @@ class MembersInfiniteCarousel {
 
     updateSlidesVisible() {
         const width = window.innerWidth;
+        const previousSlidesVisible = this.slidesVisible;
+
         if (width <= 768) {
             this.slidesVisible = 1;
         } else if (width <= 1024) {
@@ -236,6 +238,32 @@ class MembersInfiniteCarousel {
         } else {
             this.slidesVisible = 3;
         }
+
+        // Si le nombre de slides visibles a changé, recréer les dots
+        if (previousSlidesVisible !== this.slidesVisible) {
+            this.recreateDots();
+        }
+
+        // Recalculer la position avec le nouveau nombre de slides visibles
+        this.updatePosition(false);
+    }
+
+    recreateDots() {
+        // Vider les dots existants
+        this.dotsContainer.innerHTML = '';
+
+        // Recréer les dots avec le bon nombre
+        const numPositions = this.totalSlides - this.slidesVisible + 1;
+
+        for (let i = 0; i < numPositions; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('members-dot');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+
+        // Mettre à jour le dot actif
+        this.updateDots();
     }
 
     init() {
@@ -282,7 +310,10 @@ class MembersInfiniteCarousel {
     }
 
     createDots() {
-        for (let i = 0; i < this.totalSlides; i++) {
+        // Calculer le nombre de positions de navigation basé sur le nombre de slides visibles
+        const numPositions = this.totalSlides - this.slidesVisible + 1;
+
+        for (let i = 0; i < numPositions; i++) {
             const dot = document.createElement('button');
             dot.classList.add('members-dot');
             if (i === 0) dot.classList.add('active');
@@ -298,7 +329,11 @@ class MembersInfiniteCarousel {
             this.track.style.transition = 'none';
         }
 
-        const slideWidth = 100 / this.slidesVisible;
+        // Calculer la largeur d'une carte incluant le gap
+        // Sur mobile (1 slide), pas de gap. Sur desktop/tablet, gap de 2rem
+        const gapSize = this.slidesVisible === 1 ? 0 : 2; // 2rem de gap sauf sur mobile
+        const cardWidth = (100 - (gapSize * (this.slidesVisible - 1))) / this.slidesVisible;
+        const slideWidth = cardWidth + gapSize;
         const offset = -this.currentIndex * slideWidth;
         this.track.style.transform = `translateX(${offset}%)`;
 
@@ -311,12 +346,29 @@ class MembersInfiniteCarousel {
             dot.classList.remove('active');
         });
 
+        // Calculer l'index réel du dot basé sur la position actuelle
         const actualIndex = ((this.currentIndex - this.totalSlides) % this.totalSlides + this.totalSlides) % this.totalSlides;
-        dots[actualIndex].classList.add('active');
+
+        // S'assurer que l'index du dot ne dépasse pas le nombre de dots disponibles
+        const dotIndex = Math.min(actualIndex, dots.length - 1);
+
+        if (dots[dotIndex]) {
+            dots[dotIndex].classList.add('active');
+        }
     }
 
     next() {
         if (this.isTransitioning) return;
+
+        // Calculer le nombre maximum de positions
+        const maxIndex = this.totalSlides + (this.totalSlides - this.slidesVisible);
+
+        // Ne pas avancer si on est déjà à la dernière position valide
+        if (this.currentIndex >= maxIndex) {
+            // Revenir au début pour l'effet infini
+            this.currentIndex = this.totalSlides - 1;
+        }
+
         this.isTransitioning = true;
         this.currentIndex++;
         this.updatePosition();
@@ -324,6 +376,13 @@ class MembersInfiniteCarousel {
 
     prev() {
         if (this.isTransitioning) return;
+
+        // Ne pas reculer si on est déjà au début
+        if (this.currentIndex <= this.totalSlides) {
+            // Aller à la fin pour l'effet infini
+            this.currentIndex = this.totalSlides + (this.totalSlides - this.slidesVisible) + 1;
+        }
+
         this.isTransitioning = true;
         this.currentIndex--;
         this.updatePosition();
@@ -339,12 +398,19 @@ class MembersInfiniteCarousel {
     handleTransitionEnd() {
         this.isTransitioning = false;
 
-        // Réinitialiser la position si on est sur un clone
-        if (this.currentIndex >= this.totalSlides * 2) {
-            this.currentIndex = this.totalSlides;
+        // Calculer la position maximale valide
+        const maxValidIndex = this.totalSlides + (this.totalSlides - this.slidesVisible);
+
+        // Réinitialiser la position si on est sur un clone à droite
+        if (this.currentIndex > maxValidIndex) {
+            const offset = this.currentIndex - maxValidIndex;
+            this.currentIndex = this.totalSlides + offset - 1;
             this.updatePosition(false);
-        } else if (this.currentIndex < this.totalSlides) {
-            this.currentIndex = this.totalSlides * 2 - 1;
+        }
+        // Réinitialiser la position si on est sur un clone à gauche
+        else if (this.currentIndex < this.totalSlides) {
+            const offset = this.totalSlides - this.currentIndex;
+            this.currentIndex = maxValidIndex - offset + 1;
             this.updatePosition(false);
         }
     }
@@ -352,7 +418,7 @@ class MembersInfiniteCarousel {
     startAutoPlay() {
         this.autoPlayInterval = setInterval(() => {
             this.next();
-        }, 3000); // Change de slide toutes les 3 secondes
+        }, 6000); // Change de slide toutes les 6 secondes
     }
 
     stopAutoPlay() {
