@@ -125,11 +125,37 @@ class RoomCarousel {
 }
 
 // ============================================
+// CONFIG GITHUB - TARIF SALLE
+// ============================================
+const CONFIG_URL = 'https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/config.yaml';
+
+async function loadConfig() {
+    try {
+        const response = await fetch(CONFIG_URL);
+        if (!response.ok) return;
+        const text = await response.text();
+
+        // Extraction simple du tarif_journee depuis le YAML
+        const match = text.match(/tarif_journee\s*:\s*(\d+)/);
+        if (match) {
+            const tarif = match[1];
+            const el = document.getElementById('tarif-journee');
+            if (el) el.textContent = tarif + '€';
+        }
+    } catch (e) {
+        // Silencieux : la valeur par défaut (150€) reste affichée
+    }
+}
+
+// ============================================
 // FORMULAIRE DE RÉSERVATION
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
     // Initialiser le carousel
     new RoomCarousel();
+
+    // Charger le tarif depuis GitHub
+    loadConfig();
 
     // Gérer la soumission du formulaire
     const form = document.getElementById('reservationForm');

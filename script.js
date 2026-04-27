@@ -1,3 +1,16 @@
+// Popup nouveauté
+function closeNewsPopup() {
+    document.getElementById('news-overlay').classList.add('hidden');
+}
+
+document.getElementById('news-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeNewsPopup();
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeNewsPopup();
+});
+
 // Affichage de la navigation au scroll
 let lastScrollTop = 0;
 const nav = document.querySelector('nav');

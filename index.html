@@ -390,70 +390,11 @@
         </div>
     </footer>
 
-    <!-- Modal Événement Jeux de Société -->
-    <div id="eventModal" class="event-modal">
-        <div class="event-modal-overlay" onclick="closeEventModal()"></div>
-        <div class="event-modal-content">
-            <button class="event-modal-close" onclick="closeEventModal()">&times;</button>
-
-            <!-- Dés décoratifs -->
-            <div class="modal-dice modal-dice-1">⚀</div>
-            <div class="modal-dice modal-dice-2">⚃</div>
-
-            <div class="event-modal-header">
-                <img src="Ressources/IDIoTsLab_logo.svg" alt="Logo IDIoTsLab" class="event-modal-logo">
-                <h2 class="event-modal-title">
-                    <span class="modal-title-aprem">Aprem'</span>
-                    <span class="modal-title-jeux">JEUX</span>
-                    <span class="modal-title-societe">DE SOCIÉTÉ</span>
-                </h2>
-            </div>
-
-            <div class="event-modal-body">
-                <div class="event-date-badge">
-                    <div class="date-badge-icon">📅</div>
-                    <div class="date-badge-text">
-                        <strong>Samedi 17 janvier 2026</strong>
-                        <span>À partir de 14h</span>
-                    </div>
-                </div>
-
-                <div class="event-description">
-                    <p><strong>Plus de 50 jeux proposés</strong> : stratégie, collaboration, ambiance...</p>
-                    <p>Exemples : Dégoblinade, Concept, Magic, Zombicide et bien d'autres !</p>
-                </div>
-
-                <div class="event-highlights">
-                    <div class="highlight-item">
-                        <span class="highlight-icon">💰</span>
-                        <span>Participation libre</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-icon">👥</span>
-                        <span>Ouvert à tous</span>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-icon">☕</span>
-                        <span>Buvette et Gouter</span>
-                    </div>
-                </div>
-
-                <div class="event-location">
-                    <p><strong>📍 IDIoTsLab</strong></p>
-                    <p>83 rue Jean Jaurès, 69500 BRON</p>
-                </div>
-            </div>
-
-            <div class="event-modal-footer">
-                <a href="https://www.helloasso.com/associations/idiotslab/evenements/evenement-jeu-de-societe"
-                   target="_blank"
-                   class="event-modal-cta">
-                    🎲 S'inscrire à l'événement
-                </a>
-                <a href="Event/event-jeux/event-jeux.html" class="event-modal-link">
-                    Plus d'infos →
-                </a>
-            </div>
+    <!-- Popup Nouveauté -->
+    <div id="news-overlay" class="news-overlay">
+        <div class="news-modal">
+            <button class="news-close" onclick="closeNewsPopup()">✕</button>
+            <img src="https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/news.png" alt="Nouveauté IDIoTsLab" class="news-image">
         </div>
     </div>
 

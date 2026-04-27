@@ -1,0 +1,7 @@
+# Configuration IDIoTsLab - Location de salle
+# Ce fichier est récupéré dynamiquement par le site depuis GitHub
+
+location_salle:
+  tarif_journee: 150       # Tarif à la journée en euros
+  tarif_demi_journee: 80   # Tarif à la demi-journée en euros
+  devise: "€"
