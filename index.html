@@ -391,10 +391,11 @@
     </footer>
 
     <!-- Popup Nouveauté -->
-    <div id="news-overlay" class="news-overlay">
+    <div id="news-overlay" class="news-overlay hidden">
         <div class="news-modal">
             <button class="news-close" onclick="closeNewsPopup()">✕</button>
-            <img src="https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/news.png" alt="Nouveauté IDIoTsLab" class="news-image">
+            <!-- src laissé vide : renseigné par le JS uniquement si la date n'est pas passée -->
+            <img alt="Nouveauté IDIoTsLab" class="news-image">
         </div>
     </div>
 

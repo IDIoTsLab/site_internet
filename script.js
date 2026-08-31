@@ -1,4 +1,7 @@
 // Popup nouveauté
+const NEWS_CONFIG_URL = 'https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/config.yaml';
+const NEWS_IMAGE_URL = 'https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/news.png';
+
 function closeNewsPopup() {
     document.getElementById('news-overlay').classList.add('hidden');
 }
@@ -10,6 +13,38 @@ document.getElementById('news-overlay').addEventListener('click', function(e) {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeNewsPopup();
 });
+
+// Affiche le modal en renseignant le src de l'image seulement à cet instant :
+// tant que le modal reste caché, aucune requête vers news.png n'est déclenchée.
+function showNewsModal(overlay) {
+    const img = overlay.querySelector('.news-image');
+    if (img && !img.src) img.src = NEWS_IMAGE_URL;
+    overlay.classList.remove('hidden');
+}
+
+async function initNewsModal() {
+    const overlay = document.getElementById('news-overlay');
+    if (!overlay) return;
+    try {
+        const response = await fetch(NEWS_CONFIG_URL, { cache: 'no-store' });
+        if (response.ok) {
+            const text = await response.text();
+            const match = text.match(/end_date\s*:\s*"?([0-9]{4}-[0-9]{2}-[0-9]{2})"?/);
+            if (match) {
+                const endDate = new Date(match[1] + 'T23:59:59');
+                if (new Date() > endDate) {
+                    // Date passée : on laisse le modal caché et l'image n'est jamais chargée.
+                    return;
+                }
+            }
+        }
+    } catch (e) {
+        // Silencieux : en cas d'échec du fetch, on affiche quand même le modal.
+    }
+    showNewsModal(overlay);
+}
+
+initNewsModal();
 
 // Affichage de la navigation au scroll
 let lastScrollTop = 0;
