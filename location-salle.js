@@ -6,22 +6,7 @@ function toggleMenu() {
     menu.classList.toggle('active');
 }
 
-// ============================================
-// EMAIL OBFUSCATION (5 seconds delay)
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        const emailLink = document.querySelector('.email-link');
-        if (emailLink) {
-            emailLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const user = 'REDACTED';
-                const domain = 'REDACTED';
-                window.location.href = 'mailto:' + user + '@' + domain;
-            });
-        }
-    }, 5000);
-});
+// 📧 L'obfuscation email est gérée de façon centralisée dans links.js
 
 // ============================================
 // CAROUSEL
@@ -127,7 +112,7 @@ class RoomCarousel {
 // ============================================
 // CONFIG GITHUB - TARIF SALLE
 // ============================================
-const CONFIG_URL = 'https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/config.yaml';
+const CONFIG_URL = SITE_LINKS.configYaml;
 
 async function loadConfig() {
     try {
@@ -197,10 +182,8 @@ Détails de la réservation :
 
 Veuillez vérifier la disponibilité et confirmer si nécessaire.`;
 
-        // Obfuscation de l'email
-        const user = 'REDACTED';
-        const domain = 'REDACTED';
-        const email = user + '@' + domain;
+        // Email centralisé dans links.js
+        const email = SITE_LINKS.email;
 
         // Encoder les paramètres pour l'URL
         const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;

@@ -1,6 +1,6 @@
-// Popup nouveauté
-const NEWS_CONFIG_URL = 'https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/config.yaml';
-const NEWS_IMAGE_URL = 'https://raw.githubusercontent.com/IDIoTsLab/Ressources/refs/heads/main/news.png';
+// Popup nouveauté (URLs centralisées dans links.js)
+const NEWS_CONFIG_URL = SITE_LINKS.configYaml;
+const NEWS_IMAGE_URL = SITE_LINKS.newsImage;
 
 function closeNewsPopup() {
     document.getElementById('news-overlay').classList.add('hidden');
@@ -77,6 +77,7 @@ function initScrollProgress() {
         { id: 'what', name: 'Projets' },
         { id: 'community', name: 'Communauté' },
         { id: 'autonomie', name: 'Autonomie' },
+        { id: 'planning', name: 'Planning' },
         { id: 'join', name: 'Rejoindre' }
     ];
 
@@ -152,8 +153,11 @@ function toggleMenu() {
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        // Ignore les ancres vides comme "#" (ex : le logo)
+        if (!href || href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
@@ -163,6 +167,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// 🔄 Rotation du logo au clic
+const logoLink = document.querySelector('nav .logo');
+const navLogo = logoLink ? logoLink.querySelector('.nav-logo') : null;
+if (logoLink && navLogo) {
+    logoLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        navLogo.classList.remove('spin');
+        void navLogo.offsetWidth; // force un reflow pour rejouer l'animation
+        navLogo.classList.add('spin');
+    });
+    navLogo.addEventListener('animationend', function () {
+        navLogo.classList.remove('spin');
+    });
+}
+
+// 🔄 Rotation du logo du hero (début du site) au clic
+const heroLogo = document.querySelector('.hero-logo');
+if (heroLogo) {
+    heroLogo.addEventListener('click', function () {
+        heroLogo.classList.remove('spin');
+        void heroLogo.offsetWidth; // force un reflow pour rejouer l'animation
+        heroLogo.classList.add('spin');
+    });
+    heroLogo.addEventListener('animationend', function () {
+        heroLogo.classList.remove('spin');
+    });
+}
 
 // Carrousel amélioré
 let currentSlide = 0;
@@ -509,22 +541,7 @@ function enableOrbitalRotation() {
 // Appeler la fonction au chargement (si tu veux l'animation)
 window.addEventListener('load', enableOrbitalRotation);
 
-// ============================================
-// 📧 OBFUSCATION EMAIL
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        const emailLink = document.querySelector('.email-link');
-        if (emailLink) {
-            emailLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const user = 'REDACTED';
-                const domain = 'REDACTED';
-                window.location.href = 'mailto:' + user + '@' + domain;
-            });
-        }
-    }, 5000);
-});
+// 📧 L'obfuscation email est gérée de façon centralisée dans links.js
 
 // ============================================
 // 🎮 EVENT MODAL FUNCTIONALITY
@@ -566,3 +583,44 @@ document.addEventListener('keydown', function(e) {
         closeEventModal();
     }
 });
+
+// ============================================
+// 🔧 PROCHAIN OPEN LAB (2ᵉ et 4ᵉ mercredis, 18h–22h)
+// ============================================
+// Renvoie le n-ième jour de semaine (0=dim … 3=mercredi) d'un mois donné
+function nthWeekdayOfMonth(year, month, weekday, n) {
+    const first = new Date(year, month, 1);
+    const offset = (weekday - first.getDay() + 7) % 7;
+    return new Date(year, month, 1 + offset + (n - 1) * 7);
+}
+
+// Trouve le prochain Open Lab à partir de "now" (compte le jour même jusqu'à 22h)
+function getNextOpenLab(now) {
+    for (let i = 0; i < 4; i++) {
+        const ref = new Date(now.getFullYear(), now.getMonth() + i, 1);
+        const candidates = [
+            nthWeekdayOfMonth(ref.getFullYear(), ref.getMonth(), 3, 2), // 2ᵉ mercredi
+            nthWeekdayOfMonth(ref.getFullYear(), ref.getMonth(), 3, 4)  // 4ᵉ mercredi
+        ];
+        for (const c of candidates) {
+            const end = new Date(c.getFullYear(), c.getMonth(), c.getDate(), 22, 0, 0);
+            if (now <= end) return c;
+        }
+    }
+    return null;
+}
+
+function initNextOpenLab() {
+    const el = document.getElementById('nextOpenLab');
+    if (!el) return;
+    const next = getNextOpenLab(new Date());
+    if (!next) return;
+    const formatted = next.toLocaleDateString('fr-FR', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    });
+    el.textContent = `${formatted}, de 18h à 22h`;
+}
+
+initNextOpenLab();
+
+// 🎟️ Les liens d'inscription HelloAsso du planning sont gérés dans links.js

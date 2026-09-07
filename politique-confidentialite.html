@@ -136,26 +136,13 @@
         </div>
     </footer>
 
+    <script src="links.js"></script>
     <script>
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             menu.classList.toggle('active');
         }
-
-        // Email obfuscation avec délai de 5 secondes
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                const emailLinks = document.querySelectorAll('.email-link, .email-link-2, .email-link-footer');
-                emailLinks.forEach(function(link) {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const user = 'REDACTED';
-                        const domain = 'REDACTED';
-                        window.location.href = 'mailto:' + user + '@' + domain;
-                    });
-                });
-            }, 5000);
-        });
+        // 📧 Liens email gérés de façon centralisée dans links.js
     </script>
 </body>
 </html>

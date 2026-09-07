@@ -240,6 +240,21 @@ nav .logo:hover .nav-logo {
     filter: brightness(1.2);
 }
 
+/* Rotation du logo au clic (nav + hero) */
+.nav-logo.spin,
+.hero-logo.spin {
+    animation: navLogoSpin 3s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.hero-logo {
+    cursor: pointer;
+}
+
+@keyframes navLogoSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(1080deg); }
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -1829,5 +1844,277 @@ footer a {
 
     .modal-title-societe {
         font-size: 1.2rem;
+    }
+}
+
+/* ============================================
+   📅 PLANNING 2026 / 2027
+   ============================================ */
+.planning {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--bg-dark) 100%);
+    color: var(--text-light);
+}
+
+.planning h2 {
+    color: white;
+}
+
+.planning h2::after {
+    background: var(--primary-orange);
+}
+
+.planning-subtitle {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--accent-yellow);
+    margin-top: -2rem;
+    margin-bottom: 3rem;
+    letter-spacing: 0.5px;
+}
+
+/* Bannière Open Lab */
+.open-lab-banner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    padding: 1.75rem 2rem;
+    background: var(--primary-orange);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.open-lab-icon {
+    font-size: 3rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.open-lab-text h3 {
+    font-size: 1.7rem;
+    color: white;
+    margin: 0.35rem 0 0.25rem;
+}
+
+.open-lab-when {
+    font-weight: bold;
+    color: var(--primary-blue);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.open-lab-text p {
+    color: white;
+    margin: 0;
+}
+
+/* Grille des mois */
+.planning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.planning-card {
+    background: #f4efe4;
+    color: var(--text-dark);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-top: 6px solid var(--primary-orange);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.planning-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+.planning-card.idiotie {
+    border-top-color: #6b3fa0;
+}
+
+.planning-card.atelier {
+    border-top-color: #b5431f;
+}
+
+.planning-month {
+    font-size: 1.15rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-blue);
+    margin-bottom: 0.75rem;
+}
+
+.planning-year {
+    font-weight: normal;
+    color: #8a8577;
+    font-size: 0.9rem;
+}
+
+.planning-badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.3rem 0.75rem;
+    border-radius: 50px;
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+.badge-idiotie {
+    background: #6b3fa0;
+}
+
+.badge-atelier {
+    background: #b5431f;
+}
+
+.badge-openlab {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.planning-card h3 {
+    font-size: 1.35rem;
+    color: var(--text-dark);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+}
+
+.planning-date {
+    font-weight: bold;
+    color: #b5431f;
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem !important;
+}
+
+.planning-card p {
+    font-size: 0.98rem;
+    margin-bottom: 1rem;
+}
+
+/* Bouton HelloAsso (inscription) */
+.helloasso-btn {
+    display: inline-block;
+    margin-top: auto;
+    padding: 0.7rem 1.4rem;
+    background: var(--primary-orange);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.helloasso-btn:not(.disabled):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(237, 104, 26, 0.4);
+}
+
+.helloasso-btn.disabled {
+    background: #cfc9bb;
+    color: #6a6458;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Illustrations des cartes */
+.planning-illus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
+    margin-bottom: 0.75rem;
+}
+
+.planning-illus img {
+    max-width: 100%;
+    max-height: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* Bouton Discord */
+.discord-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding: 0.7rem 1.4rem;
+    background: #5865F2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.discord-btn svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.discord-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(88, 101, 242, 0.45);
+}
+
+/* Open Lab : prochain rendez-vous + Discord */
+.open-lab-next {
+    font-weight: bold;
+    color: #fff;
+    margin-top: 0.75rem !important;
+}
+
+.open-lab-next strong {
+    color: var(--primary-blue);
+}
+
+.open-lab-info {
+    margin: 0.75rem 0 0.5rem !important;
+    font-weight: 600;
+}
+
+.open-lab-banner .discord-btn {
+    background: #fff;
+    color: #5865F2;
+}
+
+.open-lab-banner .discord-btn:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
+    .planning-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .open-lab-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .planning-badge {
+        align-self: center;
+    }
+
+    .helloasso-btn {
+        width: 100%;
     }
 }
