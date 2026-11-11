@@ -75,6 +75,7 @@ function initScrollProgress() {
         { id: 'values', name: 'Valeurs' },
         { id: 'how', name: 'Le Lab' },
         { id: 'what', name: 'Projets' },
+        { id: 'patator', name: 'Ateliers' },
         { id: 'community', name: 'Communauté' },
         { id: 'autonomie', name: 'Autonomie' },
         { id: 'planning', name: 'Planning' },
@@ -624,3 +625,146 @@ function initNextOpenLab() {
 initNextOpenLab();
 
 // 🎟️ Les liens d'inscription HelloAsso du planning sont gérés dans links.js
+
+// ============================================
+// 📸 GALERIE PILE — ATELIER PATATOR
+// ============================================
+(function () {
+    var pile     = document.getElementById('galleryPile');
+    var expanded = document.getElementById('galleryExpanded');
+    var closeBtn = document.getElementById('galleryCloseBtn');
+
+    if (!pile || !expanded || !closeBtn) return;
+
+    // Durée d'attente avant de masquer la grille (dernière carte index 7 + durée anim)
+    var CLOSE_MS = 7 * 35 + 320;
+
+    pile.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pile.click(); }
+    });
+
+    pile.addEventListener('click', function () {
+        pile.setAttribute('aria-expanded', 'true');
+        pile.style.display = 'none';
+        expanded.style.display = 'block';
+        expanded.offsetWidth; // force reflow
+        expanded.classList.add('is-open');
+    });
+
+    closeBtn.addEventListener('click', function () {
+        expanded.classList.remove('is-open');
+        expanded.classList.add('is-closing');
+        setTimeout(function () {
+            expanded.classList.remove('is-closing');
+            expanded.style.display = 'none';
+            pile.style.display = '';
+            pile.setAttribute('aria-expanded', 'false');
+            // La section rétrécit de ~2000px : on recale la vue sur le tas, sinon on atterrit plus bas dans la page
+            pile.scrollIntoView({ block: 'center' });
+            pile.style.animation = 'pileAppear 0.4s cubic-bezier(0.34, 1.3, 0.64, 1)';
+            setTimeout(function () { pile.style.animation = ''; }, 400);
+        }, CLOSE_MS);
+    });
+}());
+
+// ============================================
+// 🖼️ LIGHTBOX — ATELIER PATATOR
+// ============================================
+(function () {
+    var PHOTOS = [
+        { src: 'Ressources/Atelier/Patator/Ressources/1.jpg', caption: 'Modélisation sous Fusion 360',    act: '01 · La conception'  },
+        { src: 'Ressources/Atelier/Patator/Ressources/2.jpg', caption: 'Assemblage en équipe',            act: '02 · La fabrication' },
+        { src: 'Ressources/Atelier/Patator/Ressources/3.jpg', caption: 'Câblage et assemblage',           act: '02 · La fabrication' },
+        { src: 'Ressources/Atelier/Patator/Ressources/4.jpg', caption: "Pièces prêtes à l'assemblage",    act: '02 · La fabrication' },
+        { src: 'Ressources/Atelier/Patator/Ressources/5.jpg', caption: 'Peinture des patators',           act: '03 · La peinture'    },
+        { src: 'Ressources/Atelier/Patator/Ressources/6.jpg', caption: 'Application de la peinture',      act: '03 · La peinture'    },
+        { src: 'Ressources/Atelier/Patator/Ressources/7.jpg', caption: 'Les patators terminés',           act: '03 · La peinture'    },
+        { src: 'Ressources/Atelier/Patator/Ressources/9.jpg', caption: '🏆 Diplôme du Maître Patator',    act: 'Fin'                 }
+    ];
+
+    var current = 0;
+    var overlay, lbImg, lbCaption, lbAct, lbCounter;
+
+    function build() {
+        overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        overlay.innerHTML =
+            '<button class="lb-close" aria-label="Fermer">✕</button>' +
+            '<button class="lb-prev" aria-label="Précédent">&#10094;</button>' +
+            '<div class="lb-content">' +
+              '<img class="lb-img" src="" alt="">' +
+              '<div class="lb-info">' +
+                '<span class="lb-act"></span>' +
+                '<p class="lb-caption"></p>' +
+              '</div>' +
+            '</div>' +
+            '<button class="lb-next" aria-label="Suivant">&#10095;</button>' +
+            '<div class="lb-counter"></div>';
+        document.body.appendChild(overlay);
+
+        lbImg     = overlay.querySelector('.lb-img');
+        lbCaption = overlay.querySelector('.lb-caption');
+        lbAct     = overlay.querySelector('.lb-act');
+        lbCounter = overlay.querySelector('.lb-counter');
+
+        overlay.querySelector('.lb-close').addEventListener('click', close);
+        overlay.querySelector('.lb-prev').addEventListener('click', prev);
+        overlay.querySelector('.lb-next').addEventListener('click', next);
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+        // Swipe tactile : gauche/droite pour naviguer, vers le bas pour fermer
+        var sx = 0, sy = 0;
+        overlay.addEventListener('touchstart', function (e) {
+            sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY;
+        }, { passive: true });
+        overlay.addEventListener('touchend', function (e) {
+            var dx = e.changedTouches[0].clientX - sx;
+            var dy = e.changedTouches[0].clientY - sy;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { dx < 0 ? next() : prev(); }
+            else if (dy > 90 && Math.abs(dy) > Math.abs(dx) * 1.5) { close(); }
+        }, { passive: true });
+        document.addEventListener('keydown', function (e) {
+            if (!overlay.classList.contains('active')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowLeft') prev();
+            if (e.key === 'ArrowRight') next();
+        });
+    }
+
+    function render() {
+        var p = PHOTOS[current];
+        lbImg.src = p.src;
+        lbImg.alt = p.caption;
+        lbCaption.textContent = p.caption;
+        lbAct.textContent = p.act;
+        lbCounter.textContent = (current + 1) + ' / ' + PHOTOS.length;
+        // précharge la photo suivante pour un swipe sans attente
+        new Image().src = PHOTOS[(current + 1) % PHOTOS.length].src;
+    }
+
+    function open(idx) {
+        current = idx;
+        render();
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function prev() { current = (current - 1 + PHOTOS.length) % PHOTOS.length; render(); }
+    function next() { current = (current + 1) % PHOTOS.length; render(); }
+
+    window.addEventListener('load', function () {
+        var thumbs = document.querySelectorAll('#patator .strip-photo');
+        if (!thumbs.length) return;
+        build();
+        thumbs.forEach(function (el) {
+            el.addEventListener('click', function () {
+                open(parseInt(el.dataset.lbIndex, 10));
+            });
+        });
+    });
+}());
