@@ -626,6 +626,38 @@ initNextOpenLab();
 // 🎟️ Les liens d'inscription HelloAsso du planning sont gérés dans links.js
 
 // ============================================
+// ✅ PLANNING — passe automatiquement les événements en « Terminé »
+// Chaque carte porte data-end="AAAA-MM-JJ" (dernier jour de l'événement).
+// Dès le lendemain, le badge devient « ✓ Terminé » et l'inscription disparaît.
+// ============================================
+(function () {
+    function markPastEvents() {
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        document.querySelectorAll('.planning-card[data-end]').forEach(function (card) {
+            var p = card.dataset.end.split('-').map(Number);
+            if (p.length !== 3 || p.some(isNaN)) return;
+            var end = new Date(p[0], p[1] - 1, p[2]);
+            if (today <= end) return; // pas encore passé (le jour J reste actif)
+
+            card.classList.add('is-done');
+
+            var badge = card.querySelector('.planning-badge');
+            if (badge) {
+                badge.className = 'planning-badge badge-done';
+                badge.textContent = '✓ Terminé';
+            }
+
+            // Plus d'inscription possible : on retire le bouton HelloAsso
+            card.querySelectorAll('[data-event]').forEach(function (btn) { btn.remove(); });
+        });
+    }
+
+    markPastEvents();
+}());
+
+// ============================================
 // 📸 RÉCAP ATELIER MINI PATATOR — modale ouverte depuis le planning
 // ============================================
 (function () {

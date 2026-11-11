@@ -2137,6 +2137,13 @@ footer a {
     background: #2e7d32;
 }
 
+/* Événement passé : carte légèrement estompée */
+.planning-card.is-done .planning-illus,
+.planning-card.is-done h3,
+.planning-card.is-done p {
+    opacity: 0.6;
+}
+
 .atelier-recap-date {
     color: var(--text-dark);
     opacity: 0.55;
