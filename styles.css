@@ -2615,3 +2615,7 @@ html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
 
 .recap-panel .atelier-recap-header { clear: both; margin-bottom: 1.75rem; }
 .recap-panel .atelier-recap-header h2 { margin-top: 0.5rem; }
+
+/* Titre d'acte suivi directement de la vidéo : pas de grand vide entre les deux */
+.atelier-act:has(+ .atelier-video-wrap) { margin-bottom: 0; }
+.atelier-act + .atelier-video-wrap { margin-top: 0.25rem; }
