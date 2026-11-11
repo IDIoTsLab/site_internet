@@ -75,7 +75,6 @@ function initScrollProgress() {
         { id: 'values', name: 'Valeurs' },
         { id: 'how', name: 'Le Lab' },
         { id: 'what', name: 'Projets' },
-        { id: 'patator', name: 'Ateliers' },
         { id: 'community', name: 'Communauté' },
         { id: 'autonomie', name: 'Autonomie' },
         { id: 'planning', name: 'Planning' },
@@ -627,43 +626,44 @@ initNextOpenLab();
 // 🎟️ Les liens d'inscription HelloAsso du planning sont gérés dans links.js
 
 // ============================================
-// 📸 GALERIE PILE — ATELIER PATATOR
+// 📸 RÉCAP ATELIER MINI PATATOR — modale ouverte depuis le planning
 // ============================================
 (function () {
-    var pile     = document.getElementById('galleryPile');
-    var expanded = document.getElementById('galleryExpanded');
-    var closeBtn = document.getElementById('galleryCloseBtn');
+    var modal    = document.getElementById('patatorRecap');
+    var gallery  = document.getElementById('galleryExpanded');
+    var closeBtn = document.getElementById('recapClose');
+    var openers  = document.querySelectorAll('[data-open-recap]');
+    if (!modal || !gallery || !openers.length) return;
 
-    if (!pile || !expanded || !closeBtn) return;
+    var lastFocus = null;
 
-    // Durée d'attente avant de masquer la grille (dernière carte index 7 + durée anim)
-    var CLOSE_MS = 7 * 35 + 320;
+    function isLightboxOpen() {
+        return !!document.querySelector('.lightbox-overlay.active');
+    }
 
-    pile.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pile.click(); }
-    });
+    function open() {
+        lastFocus = document.activeElement;
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        gallery.style.display = 'block';
+        gallery.offsetWidth; // force reflow pour rejouer l'animation d'entrée
+        gallery.classList.add('is-open');
+        modal.scrollTop = 0;
+        closeBtn.focus({ preventScroll: true });
+    }
 
-    pile.addEventListener('click', function () {
-        pile.setAttribute('aria-expanded', 'true');
-        pile.style.display = 'none';
-        expanded.style.display = 'block';
-        expanded.offsetWidth; // force reflow
-        expanded.classList.add('is-open');
-    });
+    function close() {
+        modal.hidden = true;
+        gallery.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
 
-    closeBtn.addEventListener('click', function () {
-        expanded.classList.remove('is-open');
-        expanded.classList.add('is-closing');
-        setTimeout(function () {
-            expanded.classList.remove('is-closing');
-            expanded.style.display = 'none';
-            pile.style.display = '';
-            pile.setAttribute('aria-expanded', 'false');
-            // La section rétrécit de ~2000px : on recale la vue sur le tas, sinon on atterrit plus bas dans la page
-            pile.scrollIntoView({ block: 'center' });
-            pile.style.animation = 'pileAppear 0.4s cubic-bezier(0.34, 1.3, 0.64, 1)';
-            setTimeout(function () { pile.style.animation = ''; }, 400);
-        }, CLOSE_MS);
+    openers.forEach(function (btn) { btn.addEventListener('click', open); });
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden && !isLightboxOpen()) close();
     });
 }());
 
@@ -751,14 +751,15 @@ initNextOpenLab();
 
     function close() {
         overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        var recap = document.getElementById('patatorRecap');
+        document.body.style.overflow = (recap && !recap.hidden) ? 'hidden' : '';
     }
 
     function prev() { current = (current - 1 + PHOTOS.length) % PHOTOS.length; render(); }
     function next() { current = (current + 1) % PHOTOS.length; render(); }
 
     window.addEventListener('load', function () {
-        var thumbs = document.querySelectorAll('#patator .strip-photo');
+        var thumbs = document.querySelectorAll('#patatorRecap .strip-photo');
         if (!thumbs.length) return;
         build();
         thumbs.forEach(function (el) {

@@ -2122,9 +2122,6 @@ footer a {
 /* ============================================
    🎯 ATELIER RECAP
    ============================================ */
-.atelier-recap {
-    background: var(--bg-primary);
-}
 
 .atelier-recap-header {
     text-align: center;
@@ -2147,79 +2144,9 @@ footer a {
     margin-top: 0.25rem;
 }
 
-/* ---- Tas de photos (état replié) ---- */
-.gallery-pile {
-    position: relative;
-    width: 260px;
-    height: 370px;
-    margin: 0 auto;
-    cursor: pointer;
-    user-select: none;
-}
-
-.pile-card {
-    position: absolute;
-    width: 200px;
-    height: 280px;
-    top: 20px;
-    left: 30px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 3px solid #fff;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.22);
-    transform: rotate(var(--r)) translate(var(--tx), var(--ty));
-    z-index: var(--z);
-    transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
-    will-change: transform;
-}
-
-.pile-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    pointer-events: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .gallery-pile:hover .pile-card {
-        transform: rotate(calc(var(--r) * 1.6)) translate(calc(var(--tx) * 3), calc(var(--ty) * 3));
-    }
-}
-
-/* Retour tactile à l'appui (le :hover n'existe pas au doigt) */
-.gallery-pile:active .pile-card { transform: rotate(calc(var(--r) * 1.3)) translate(calc(var(--tx) * 2), calc(var(--ty) * 2)); }
-.gallery-pile:focus-visible { outline: 3px solid var(--primary-orange); outline-offset: 6px; border-radius: 12px; }
-
-.pile-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 20;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    padding-top: 0.5rem;
-    pointer-events: none;
-}
-
-.pile-count {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.pile-action {
-    font-size: 0.8rem;
-    color: var(--primary-orange);
-    font-weight: 600;
-}
-
-/* ---- Grille déployée ---- */
+/* ---- Contenu du récap (dans la modale) ---- */
 .gallery-expanded {
-    display: none;
+    display: block;
 }
 
 .atelier-act {
@@ -2265,11 +2192,6 @@ footer a {
     to   { opacity: 1; transform: none; }
 }
 
-@keyframes pileAppear {
-    from { opacity: 0; transform: scale(0.65); }
-    to   { opacity: 1; transform: none; }
-}
-
 .gallery-expanded.is-open .photo-item {
     animation: cardFlyOut 0.52s cubic-bezier(0.34, 1.5, 0.64, 1) backwards;
     animation-delay: calc(var(--card-i, 0) * 65ms);
@@ -2280,11 +2202,6 @@ footer a {
 .gallery-expanded.is-open .atelier-punchline {
     animation: actFadeIn 0.35s ease backwards;
     animation-delay: calc(var(--act-i, 0) * 80ms);
-}
-
-.gallery-expanded.is-open .gallery-close-btn {
-    animation: actFadeIn 0.3s ease backwards;
-    animation-delay: 0.56s;
 }
 
 /* ---- Animations fermeture ---- */
@@ -2379,25 +2296,6 @@ footer a {
     margin: 0;
 }
 
-/* Bouton fermeture */
-.gallery-close-btn {
-    display: block;
-    margin: 2rem auto 0;
-    padding: 0.55rem 1.5rem;
-    background: var(--bg-dark);
-    color: rgba(255,255,255,0.7);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 0.82rem;
-    letter-spacing: 0.5px;
-    transition: background 0.2s, color 0.2s;
-}
-
-.gallery-close-btn:hover {
-    background: var(--primary-orange);
-    color: white;
-}
 
 /* ---- Vidéo ---- */
 .atelier-video-wrap {
@@ -2558,18 +2456,6 @@ footer a {
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-    .gallery-pile {
-        width: 230px;
-        height: 330px;
-    }
-
-    .pile-card {
-        width: 170px;
-        height: 238px;
-        top: 16px;
-        left: 30px;
-    }
-
     .photos-strip {
         gap: 0.5rem;
     }
@@ -2599,7 +2485,7 @@ footer a {
    ============================================ */
 html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; }
 
-.gallery-pile, .strip-photo, .gallery-close-btn, .lb-close, .lb-prev, .lb-next {
+.strip-photo, .recap-btn, .lb-close, .lb-prev, .lb-next {
     touch-action: manipulation;
     -webkit-user-select: none;
     user-select: none;
@@ -2614,7 +2500,6 @@ html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
 .lb-prev, .lb-next { width: 3rem; height: 3rem; }
 .lb-content { padding-bottom: env(safe-area-inset-bottom, 0px); touch-action: pan-y; }
 
-.gallery-close-btn { padding: 0.8rem 1.8rem; font-size: 0.9rem; }
 
 /* Tablette : photos un peu plus grandes, grille centrée */
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -2664,7 +2549,6 @@ html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
 @media (max-height: 500px) and (orientation: landscape) {
     .lb-img { max-height: 70dvh; }
     .lb-info { display: none; }
-    .gallery-pile { transform: scale(0.8); transform-origin: top center; margin-bottom: -60px; }
 }
 
 /* Mouvement réduit */
@@ -2673,7 +2557,61 @@ html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
     .gallery-expanded.is-open .atelier-act,
     .gallery-expanded.is-open .atelier-video-wrap,
     .gallery-expanded.is-open .atelier-punchline,
-    .gallery-expanded.is-open .gallery-close-btn,
     .gallery-expanded.is-closing .photo-item { animation: none; }
-    .pile-card, .strip-photo, .strip-photo img { transition: none; }
+    .strip-photo, .strip-photo img { transition: none; }
 }
+
+/* ============================================
+   🪟 MODALE RÉCAP (ouverte depuis la carte du planning)
+   ============================================ */
+.recap-btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.recap-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(15, 15, 30, 0.82);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(1.5rem + env(safe-area-inset-top, 0px)) 1rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+.recap-modal[hidden] { display: none; }
+
+.recap-panel {
+    position: relative;
+    max-width: 1040px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+    border-radius: 18px;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.recap-close {
+    position: sticky;
+    top: 0.5rem;
+    float: right;
+    z-index: 5;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: -0.5rem -0.5rem 0 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    touch-action: manipulation;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.recap-close:hover { background: var(--primary-orange); }
+
+.recap-panel .atelier-recap-header { clear: both; margin-bottom: 1.75rem; }
+.recap-panel .atelier-recap-header h2 { margin-top: 0.5rem; }
