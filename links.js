@@ -18,9 +18,8 @@ const SITE_LINKS = {
     github:    "https://github.com/IDIoTsLab",
     linkedin:  "https://www.linkedin.com/company/idiotslab",
 
-    // --- Contact (email assemblé en 2 morceaux pour limiter le spam) ---
-    emailUser:   "REDACTED",
-    emailDomain: "REDACTED",
+    // --- Contact : l'adresse est cassée en morceaux mélangés (voir EMAIL_PARTS
+    //     plus bas) et n'est reconstruite qu'au moment du clic ---
 
     // --- Dons / association ---
     helloasso: "https://www.helloasso.com/associations/idiotslab",
@@ -54,8 +53,39 @@ const SITE_LINKS = {
     }
 };
 
-// Adresse email complète (utilisée par les formulaires)
-SITE_LINKS.email = SITE_LINKS.emailUser + "@" + SITE_LINKS.emailDomain;
+// ------------------------------------------------------------
+// 📧 Adresse email cassée en morceaux : [position, texte]
+// L'ordre dans le tableau est volontairement mélangé : seule la
+// position (1er nombre) dit comment recoller. Aucune partie ne
+// contient le nom ou le domaine en entier, donc une recherche dans
+// le code source ne trouve pas l'adresse.
+// ------------------------------------------------------------
+const EMAIL_PARTS = [
+    [5, "gm"],
+    [2, "ots"],
+    [0, "the"],
+    [7, ".com"],
+    [4, "@"],
+    [1, ".idi"],
+    [3, "lab"],
+    [6, "ail"]
+];
+
+// Reconstruit l'adresse complète : remet les morceaux dans l'ordre et les colle
+function assembleEmail() {
+    return EMAIL_PARTS
+        .slice()                                   // copie, on ne modifie pas l'original
+        .sort(function (a, b) { return a[0] - b[0]; })
+        .map(function (part) { return part[1]; })
+        .join("");
+}
+
+// SITE_LINKS.email est calculée à chaque lecture (jamais stockée en clair),
+// donc l'adresse n'existe en entier qu'au moment où on l'utilise.
+Object.defineProperty(SITE_LINKS, "email", {
+    get: assembleEmail,
+    enumerable: false
+});
 
 // ============================================================
 // ⚙️  APPLICATION AUTOMATIQUE — NE RIEN MODIFIER EN DESSOUS
@@ -81,13 +111,12 @@ SITE_LINKS.email = SITE_LINKS.emailUser + "@" + SITE_LINKS.emailDomain;
         });
 
         // Liens email (assemblés au clic) : class .email-link* ou data-link="email"
-        var mailto = 'mailto:' + SITE_LINKS.email;
         document.querySelectorAll(
             '.email-link, .email-link-2, .email-link-3, .email-link-footer, [data-link="email"]'
         ).forEach(function (link) {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
-                window.location.href = mailto;
+                window.location.href = 'mailto:' + assembleEmail();
             });
         });
 
