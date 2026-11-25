@@ -42,7 +42,7 @@ const SITE_LINKS = {
         "septembre-2026": "", // Vendredi de l'Idiotie
         "octobre-2026":   "https://www.helloasso.com/associations/idiotslab/evenements/week-end-do-it-edition-octobre-2026", // Week end do it Mini Patator
         "novembre-2026":  "https://www.helloasso.com/associations/idiotslab/evenements/vendredi-de-l-idiotie", // Vendredi de l'Idiotie
-        "decembre-2026":  "", // Week end do it Babioles
+        "decembre-2026":  "https://www.helloasso.com/associations/idiotslab/evenements/weekend-doit-boissons", // Week end do it Atelier Boisson
         "janvier-2027":   "https://www.helloasso.com/associations/idiotslab/evenements/vendredi-de-l-idiotie-edition-janvier-2027", // Vendredi de l'Idiotie
         "fevrier-2027":   "", // Week end do it Voiture RC Bluetooth
         "mars-2027":      "", // Vendredi de l'Idiotie
